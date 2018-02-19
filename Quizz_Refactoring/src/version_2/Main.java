@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class Main {
 
-	protected static void main(String[] args) {
+	public static void main(String[] args) {
 		JFrame f1 = new JFrame("Quizz");
 		f1.setSize(1250, 730);
 		f1.setVisible(true);
