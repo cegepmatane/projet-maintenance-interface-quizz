@@ -11,7 +11,15 @@ public class Controleur {
 		this.vue = vue ;
 	}
 
-
+	/** methode qui nous fait continuer le quizz */
+	public void commencer()
+	{
+		
+		this.vue.commencerQuizz();
+		
+	}
+	
+	/** methode qui nous fait continuer le quizz */
 	public void continuer()
 	{
 		

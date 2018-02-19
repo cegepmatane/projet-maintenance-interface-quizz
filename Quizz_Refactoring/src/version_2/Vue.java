@@ -78,6 +78,8 @@ public class Vue extends JPanel implements ActionListener
 
 	private JPanel panelTampon;
 
+	private JButton commencer ;
+	
 	public Vue()
 	{
 
@@ -87,26 +89,18 @@ public class Vue extends JPanel implements ActionListener
 		setPreferredSize(new Dimension(1250,625));
 		setOpaque(false);
 		initQuesRep();
-		JButton commancer = new JButton("Commencer");
-		commancer.addActionListener(new ActionListener(){
+		commencer = new JButton("Commencer");
+		commencer.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				remove(commancer);
-				menu = panMenu();
-				add(menu,BorderLayout.NORTH);
+				commencerQuizz() ;
+			}
 
-				quizz = panQuizz();
-				add(quizz,BorderLayout.CENTER);
+			});
 
-				solution = panSolution() ;
-				add(solution,BorderLayout.SOUTH);
-				repaint();
-				revalidate();
-			}});
-
-		add(commancer,BorderLayout.CENTER);
+		add(commencer,BorderLayout.CENTER);
 
 	}
 
@@ -514,6 +508,21 @@ public class Vue extends JPanel implements ActionListener
 		revalidate();
 	}
 
+	public void commencerQuizz() {
+
+		remove(commencer);
+		menu = panMenu();
+		add(menu,BorderLayout.NORTH);
+
+		quizz = panQuizz();
+		add(quizz,BorderLayout.CENTER);
+
+		solution = panSolution() ;
+		add(solution,BorderLayout.SOUTH);
+		repaint();
+		revalidate();
+		
+	}
 
 	public static void main(String[] args) {
 		JFrame f1 = new JFrame("Quizz");
