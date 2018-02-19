@@ -34,7 +34,6 @@ public class AngularQCM extends JPanel implements ActionListener
 	private JLabel matiere;
 	private JLabel moyenne;
 	
-	
 	private JRadioButton reponse;
 	
 	private JRadioButton[] reponseAlea = new JRadioButton[4];
@@ -104,7 +103,7 @@ public class AngularQCM extends JPanel implements ActionListener
     
     public JPanel panSolution()
     {
-    	JPanel solution = new JPanel();
+    	solution = new JPanel();
     	solution.setOpaque(false);
     	solution.setLayout(new GridBagLayout());
     	solution.setPreferredSize(new Dimension(1150,120));
