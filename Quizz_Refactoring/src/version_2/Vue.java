@@ -478,7 +478,6 @@ public class Vue extends JPanel implements ActionListener
 		revalidate();
 	}
 
-<<<<<<< .mine
 	protected void validerReponse() {
 		if(reponseAlea[choice].getText() == reponse.getText())
 		{
@@ -514,76 +513,15 @@ public class Vue extends JPanel implements ActionListener
 			score.setText(scoreInt+"/20");
 			System.out.println(essaiInt);
 		}
-||||||| .r4
-	public void commencerQuizz() {
-
-		remove(commencer);
-		menu = panMenu();
-		add(menu,BorderLayout.NORTH);
-
-		quizz = panQuizz();
-		add(quizz,BorderLayout.CENTER);
-=======
-	protected void continuerFinDePartie()
-	{
-		remove(panelTampon);
-		scoreInt = 0;
-		score.setText(scoreInt+"/20");
-		quizz = panQuizz() ;
-		solution = panSolution() ;
-		add(quizz,BorderLayout.CENTER);
->>>>>>> .r5
-<<<<<<< .mine
 
 		essaiTtl += 1 ;
-||||||| .r4
-
-		solution = panSolution() ;
-		add(solution,BorderLayout.SOUTH);
-		repaint();
-		revalidate();
-=======
-		add(solution,BorderLayout.SOUTH);
-		repaint();
-		revalidate();
->>>>>>> .r5
+		
 	}
-<<<<<<< .mine
 
 	protected void afficherSolution() {
 		essai.setText(reponseStr);
 		scoreInt -= (3 - essaiInt) ;
 		
-||||||| .r4
-
-	public static void main(String[] args) {
-		JFrame f1 = new JFrame("Quizz");
-		Vue p1 = new Vue();
-		f1.add(p1,BorderLayout.CENTER);
-		f1.setSize(1250, 730);
-		f1.setVisible(true);
-		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-=======
-	
-	protected void quitter()
-	{
-		remove(panelTampon);
-		remove(menu);
-		remove(quizz);
-		remove(solution);
-		removeAll();
-		repaint();
-		revalidate();
-	}
-	
-	protected static void main(String[] args) {
-		JFrame f1 = new JFrame("Quizz");
-		Vue p1 = new Vue();
-		f1.add(p1,BorderLayout.CENTER);
-		f1.setSize(1250, 730);
-		f1.setVisible(true);
-		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
->>>>>>> .r5
 	}
 
 	protected void quitterPendantLaPartie() {
@@ -873,51 +811,7 @@ public class Vue extends JPanel implements ActionListener
 	public void setEssaiTtl(int essaiTtl) {
 		this.essaiTtl = essaiTtl;
 	}
-<<<<<<< .mine
 
 	
-||||||| .r4
-=======
-
-	public void validerReponse() {
-		if(reponseAlea[choice].getText() == reponse.getText())
-		{
-			scoreInt++;
-
-			essaiInt = 0 ;
-			essaiStr = "" ;
-			score.setText(scoreInt+"/20");
-			remove(quizz);
-			remove(solution);
-			add(panWin());
-			repaint();
-			revalidate();
-
-		}
-		else
-		{
-			for(int i = 0 ; i < 4 ; i++)
-			{
-				reponseAlea[i].setSelected(false);
-			}
-			scoreInt -= 1 ;
-			essaiInt += 1 ;
-			if(essaiInt >= 3)
-			{
-				essaiStr = reponseStr;
-			}
-			else
-			{
-				essaiStr += "|" ;
-			}
-			essai.setText(essaiStr);
-			score.setText(scoreInt+"/20");
-			System.out.println(essaiInt);
-		}
-
-		essaiTtl += 1 ;
-		
-	}
->>>>>>> .r5
 }
 
