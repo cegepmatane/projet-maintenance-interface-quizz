@@ -40,4 +40,20 @@ public class Controleur {
 		
 	}
 
+	public void afficherSolution() {
+
+		this.vue.afficherSolution();
+		
+	}
+
+	public void quitterPendantLaPartie() {
+
+		this.vue.quitterPendantLaPartie();
+	}
+
+	public void commencerLeQuizz() {
+		this.vue.commencerLeQuizz();
+		
+	}
+
 }
