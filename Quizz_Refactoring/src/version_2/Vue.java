@@ -155,14 +155,8 @@ public class Vue extends JPanel implements ActionListener
 			quitter.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
-					remove(panelTampon);
-					remove(menu);
-					remove(quizz);
-					remove(solution);
-					removeAll();
-					repaint();
-					revalidate();
-
+					
+					controleur.quitter();
 				}
 			}
 					);
@@ -189,15 +183,8 @@ public class Vue extends JPanel implements ActionListener
 			continuer.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
-					remove(panelTampon);
-					scoreInt = 0;
-					score.setText(scoreInt+"/20");
-					quizz = panQuizz() ;
-					solution = panSolution() ;
-					add(quizz,BorderLayout.CENTER);
-					add(solution,BorderLayout.SOUTH);
-					repaint();
-					revalidate();
+					
+					controleur.continuerFinDePartie();
 
 				}
 			}
@@ -374,42 +361,8 @@ public class Vue extends JPanel implements ActionListener
 
 		valider.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				if(reponseAlea[choice].getText() == reponse.getText())
-				{
-					scoreInt++;
-
-					essaiInt = 0 ;
-					essaiStr = "" ;
-					score.setText(scoreInt+"/20");
-					remove(quizz);
-					remove(solution);
-					add(panWin());
-					repaint();
-					revalidate();
-
-				}
-				else
-				{
-					for(int i = 0 ; i < 4 ; i++)
-					{
-						reponseAlea[i].setSelected(false);
-					}
-					scoreInt -= 1 ;
-					essaiInt += 1 ;
-					if(essaiInt >= 3)
-					{
-						essaiStr = reponseStr;
-					}
-					else
-					{
-						essaiStr += "|" ;
-					}
-					essai.setText(essaiStr);
-					score.setText(scoreInt+"/20");
-					System.out.println(essaiInt);
-				}
-
-				essaiTtl += 1 ;
+				
+				controleur.validerReponse();
 			}
 
 		});
@@ -497,18 +450,7 @@ public class Vue extends JPanel implements ActionListener
 		return (menu);
 	}
 
-	public void continuerQuizz()
-	{
-		remove(panelTampon);
-		quizz = panQuizz() ;
-		solution = panSolution() ;
-		add(quizz,BorderLayout.CENTER);
-		add(solution,BorderLayout.SOUTH);
-		repaint();
-		revalidate();
-	}
-
-	public void commencerQuizz() {
+	protected void commencerQuizz() {
 
 		remove(commencer);
 		menu = panMenu();
@@ -524,7 +466,43 @@ public class Vue extends JPanel implements ActionListener
 		
 	}
 
-	public static void main(String[] args) {
+	
+	protected void continuerQuizz()
+	{
+		remove(panelTampon);
+		quizz = panQuizz() ;
+		solution = panSolution() ;
+		add(quizz,BorderLayout.CENTER);
+		add(solution,BorderLayout.SOUTH);
+		repaint();
+		revalidate();
+	}
+
+	protected void continuerFinDePartie()
+	{
+		remove(panelTampon);
+		scoreInt = 0;
+		score.setText(scoreInt+"/20");
+		quizz = panQuizz() ;
+		solution = panSolution() ;
+		add(quizz,BorderLayout.CENTER);
+		add(solution,BorderLayout.SOUTH);
+		repaint();
+		revalidate();
+	}
+	
+	protected void quitter()
+	{
+		remove(panelTampon);
+		remove(menu);
+		remove(quizz);
+		remove(solution);
+		removeAll();
+		repaint();
+		revalidate();
+	}
+	
+	protected static void main(String[] args) {
 		JFrame f1 = new JFrame("Quizz");
 		Vue p1 = new Vue();
 		f1.add(p1,BorderLayout.CENTER);
@@ -788,6 +766,46 @@ public class Vue extends JPanel implements ActionListener
 
 	public void setEssaiTtl(int essaiTtl) {
 		this.essaiTtl = essaiTtl;
+	}
+
+	public void validerReponse() {
+		if(reponseAlea[choice].getText() == reponse.getText())
+		{
+			scoreInt++;
+
+			essaiInt = 0 ;
+			essaiStr = "" ;
+			score.setText(scoreInt+"/20");
+			remove(quizz);
+			remove(solution);
+			add(panWin());
+			repaint();
+			revalidate();
+
+		}
+		else
+		{
+			for(int i = 0 ; i < 4 ; i++)
+			{
+				reponseAlea[i].setSelected(false);
+			}
+			scoreInt -= 1 ;
+			essaiInt += 1 ;
+			if(essaiInt >= 3)
+			{
+				essaiStr = reponseStr;
+			}
+			else
+			{
+				essaiStr += "|" ;
+			}
+			essai.setText(essaiStr);
+			score.setText(scoreInt+"/20");
+			System.out.println(essaiInt);
+		}
+
+		essaiTtl += 1 ;
+		
 	}
 }
 
