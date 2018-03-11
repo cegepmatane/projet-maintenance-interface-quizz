@@ -12,9 +12,11 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -81,6 +83,7 @@ public class Vue extends JPanel implements ActionListener
 	private JPanel score1;
 	
 	private JLabel information;
+
 	
 	public Vue(Quizz modele)
 	{
@@ -105,7 +108,12 @@ public class Vue extends JPanel implements ActionListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controleur.commencerLeQuizz() ;
+				try {
+					controleur.commencer() ;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				}
 
 			});
@@ -200,7 +208,12 @@ public class Vue extends JPanel implements ActionListener
 				public void actionPerformed(ActionEvent e)
 				{
 					
-					controleur.continuerFinDePartie();
+					try {
+						controleur.continuerFinDePartie();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 				}
 			}
@@ -232,7 +245,12 @@ public class Vue extends JPanel implements ActionListener
 			continuer.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
-					controleur.continuer();
+					try {
+						controleur.continuer();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 				}
 			}
@@ -456,7 +474,7 @@ public class Vue extends JPanel implements ActionListener
 		return (menu);
 	}
 	
-	public JPanel panScore()
+	public JPanel panScore() throws IOException
 	{
 		JPanel score1 = new JPanel();
 		score1.setOpaque(false);
@@ -482,6 +500,9 @@ public class Vue extends JPanel implements ActionListener
 		score1.add(information);
 		score1.add(combo);
 		score1.add(valider);
+		
+		 
+	       
 
 		valider.addActionListener(new ActionListener() {
 
@@ -492,11 +513,20 @@ public class Vue extends JPanel implements ActionListener
 				String matiere = (String) combo.getSelectedItem();
 				try {
 					BufferedReader fichierTheme1 = new BufferedReader(new FileReader(new File("Quizz/Notes/"+matiere+".txt")));
-					String notePhrase = fichierTheme1.readLine();
-					int note =  Integer.parseInt(notePhrase);
-					System.out.println(note);
 					score1.remove(valider);
-					information.setText("Dernière note : "+note);
+					score1.remove(information);
+					JLabel visualiser = new JLabel("Dernière note : ");
+					score1.add(visualiser);
+						
+					fichierTheme1.readLine();
+					JLabel note = new JLabel();
+
+					Scanner sc = new Scanner(new File("Quizz/Notes/"+matiere+".txt"));
+					while (sc.hasNextLine()) { 
+						String s = sc.nextLine(); System.out.println(s); note.setText(new String(s)); note.getText();
+					} 
+					sc.close();
+					
 					score1.remove(combo);
 					score1.repaint();
 					score1.revalidate();
@@ -514,7 +544,7 @@ public class Vue extends JPanel implements ActionListener
 		return score1;
 	}
 
-	protected void commencerQuizz() {
+	protected void commencerQuizz() throws IOException {
 
 		remove(commencer);
 		remove(categorieBox);
@@ -608,7 +638,7 @@ public class Vue extends JPanel implements ActionListener
 		
 	}
 
-	protected void commencerLeQuizz() {
+	protected void commencerLeQuizz() throws IOException {
 		commencerQuizz();	
 	}
 
@@ -631,7 +661,7 @@ public class Vue extends JPanel implements ActionListener
 		}
 	}
 
-	protected void continuerFinDePartie()
+	protected void continuerFinDePartie() throws IOException
 	{
 		remove(panelTampon);
 		modele.definirScoreInt(0);
